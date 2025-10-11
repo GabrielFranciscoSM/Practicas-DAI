@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow-lg">
+  <!-- Banner verde oscuro estilo Mercadona -->
+  <div class="card-header text-white" style="background-color: #2d7a3e;">
+    <h4 class="mb-0">Productos Destacados</h4>
+  </div>
+  <div class="card-body p-0">
+    
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      
+      <div class="carousel-indicators">
+        {% for producto in productos %}
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}" {% if loop.first %}aria-current="true"{% endif %} aria-label="Slide {{ loop.index }}"></button>
+        {% endfor %}
+      </div>
+      
+      <div class="carousel-inner">
+        {% for producto in productos %}
+          <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class="d-flex justify-content-center bg-light" style="height: 300px;">
+              <img src="{{ producto.url_img }}" class="object-fit-contain" style="max-height: 300px; max-width: 100%;" alt="{{ producto.texto_1 or 'Imagen' }}">
+            </div>
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-2">
+              <h5>{{ producto.texto_1 or 'Sin título' }}</h5>
+              <p class="mb-1">{{ producto.texto_2 or '' }}</p>
+              <p class="fw-bold text-warning mb-0">{{ producto.texto_precio or '' }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark bg-opacity-50 rounded-circle p-3" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark bg-opacity-50 rounded-circle p-3" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      
+    </div>
+    
+  </div>
+</div>
+
+{% endblock %}
