@@ -1,0 +1,14 @@
+name: 🧍 Historia de usuario
+description: Plantilla para definir una nueva historia de usuario.
+title: "[USER STORY] <Título descriptivo>"
+labels: ["Historia de Usuario"]
+body:
+
+  - type: textarea
+    id: historia
+    attributes:
+      label: Historia de usuario
+      description: Usa la fórmula "Como [rol], quiero [objetivo] para [beneficio]".
+      placeholder: "Como usuario registrado, quiero guardar mis preferencias de idioma para no tener que elegirlo cada vez."
+    validations:
+      required: true

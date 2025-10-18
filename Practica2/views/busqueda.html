@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "components/item.html" import card %}
+
+{% block content %}
+
+<div class="container my-5">
+  {% if query %}
+    <h2 class="mb-2 fw-bold" style="color: #212529; font-size: 1.75rem;">Resultados de búsqueda</h2>
+    <p class="text-muted mb-4" style="font-size: 0.95rem;">Mostrando resultados para "<span class="fw-semibold">{{ query }}</span>" - {{ productosCards.length }} producto(s) encontrado(s)</p>
+  {% else %}
+    <h2 class="mb-2 fw-bold" style="color: #212529; font-size: 1.75rem;">Búsqueda de productos</h2>
+    <p class="text-muted mb-4" style="font-size: 0.95rem;">Introduce un término de búsqueda en la barra superior</p>
+  {% endif %}
+  
+  {% if productosCards.length > 0 %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+      {% for producto in productosCards %}
+        {{ card(producto) }}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-light border mt-4 text-center py-5" role="alert">
+      <h4 class="alert-heading fw-bold mb-3" style="color: #212529;">No se encontraron productos</h4>
+      <p class="mb-3" style="font-size: 0.95rem;">No hay productos que coincidan con tu búsqueda "<span class="fw-semibold">{{ query }}</span>".</p>
+      <p class="mb-4 text-muted" style="font-size: 0.9rem;">Intenta con otros términos o explora nuestro catálogo completo.</p>
+      <hr class="my-4">
+      <a href="/" class="btn btn-success fw-semibold" style="background-color: var(--mercadona-green); border-color: var(--mercadona-green);">Volver al inicio</a>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

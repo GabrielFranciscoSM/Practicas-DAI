@@ -34,6 +34,18 @@ const productoSchema = new mongoose.Schema({
     precio_euros: {
         type: Number,
         required: true,
+    },
+    descuento: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 1,
+        validate: {
+            validator: function(v) {
+                return v >= 0 && v <= 1;
+            },
+            message: 'El descuento debe ser un valor entre 0 y 1'
+        }
     }
 	
 })
