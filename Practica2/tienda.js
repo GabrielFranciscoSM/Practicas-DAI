@@ -1,9 +1,9 @@
 import 'dotenv/config'
 import express   from "express"
 import nunjucks  from "nunjucks"
+import session   from "express-session"
       
 import connectDB from "./model/db.js"
-
 import TiendaRouter from "./routes/router_tienda.js"
 const app = express()
 
@@ -11,7 +11,12 @@ const IN = process.env.IN || 'development'
 
 await connectDB()
 
-app.use("/", TiendaRouter);
+
+app.use(session({
+	secret: 'my-secret',      // a secret string used to sign the session ID cookie
+	resave: false,            // don't save session if unmodified
+	saveUninitialized: false  // don't create session until something stored
+}))
 
 nunjucks.configure('views', {         // directorio 'views' para las plantillas html
 	autoescape: true,
@@ -20,6 +25,8 @@ nunjucks.configure('views', {         // directorio 'views' para las plantillas 
 	express: app
 })
 app.set('view engine', 'html')
+
+app.use("/", TiendaRouter);
 
 app.use('/static', express.static('public'))     // directorio public para archivos css, js, imágenes, etc.
 

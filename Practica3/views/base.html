@@ -26,7 +26,7 @@
       </div>
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-        <a type="button" href="/carrito"  class="btn btn-primary position-relative" style="background-color: var(--mercadona-green); border-color: var(--mercadona-green);">
+  <a type="button" href="/carrito"  class="btn btn-primary position-relative me-5" style="background-color: var(--mercadona-green); border-color: var(--mercadona-green);">
           
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
@@ -37,6 +37,18 @@
 
           <span class="nav-price ms-3 d-none d-lg-inline">{{precioTotal}} €</span>
         </a>
+
+        {% if usuario %}
+          <div class="ms-3 d-flex align-items-center">
+            <span class="me-2 d-none d-lg-inline">Hola, {{ usuario }}</span>
+            <a href="/usuario/logout" class="btn btn-mercadona-outline btn-sm">Salir</a>
+          </div>
+        {% else %}
+          <div class="ms-3 d-flex align-items-center">
+            <a href="/usuario/login" class="btn btn-mercadona-link btn-sm me-2">Iniciar sesión</a>
+            <a href="/usuario/registro" class="btn btn-mercadona btn-sm">Registro</a>
+          </div>
+        {% endif %}
       </div>
     </div>
     </nav>
