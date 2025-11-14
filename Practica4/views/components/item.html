@@ -1,0 +1,30 @@
+{% macro card(producto,admin) %}
+<div class="col">
+  <div class="card h-100 border-0 shadow-sm position-relative bg-white">
+    {% if producto.descuento and producto.descuento > 0 %}
+      <span class="position-absolute top-0 end-0 badge bg-danger badge-descuento m-2" style="z-index: 1;">
+        -{{ (producto.descuento * 100) | round }}%
+      </span>
+    {% endif %}
+    <img src="{{ producto.url_img }}" class="card-img-top object-fit-contain bg-light p-3" style="height: 200px;" alt="{{ producto.texto_1 or 'Producto' }}">
+    <div class="card-body d-flex flex-column p-3">
+      <h5 class="card-title mb-2">{{ producto.texto_1 or 'Sin título' }}</h5>
+      <p class="card-text text-secondary mb-2" style="font-size: 0.85rem; line-height: 1.4;">{{ producto.texto_2 or '' }}</p>
+      <p class="card-text mb-3"><small class="text-uppercase text-muted" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;">{{ producto.categoria or '' }}</small></p>
+      <div class="mt-auto">
+        {% if producto.descuento and producto.descuento > 0 %}
+          <p class="text-muted text-decoration-line-through mb-1 precio-original">{{ producto.texto_precio or '' }}</p>
+          <p class="fw-bold mb-3 precio-descuento">{{ (producto.precio_euros * (1 - producto.descuento)) | round(2) }} €</p>
+        {% else %}
+          <p class="fw-bold mb-3 precio-normal">{{ producto.texto_precio or '' }}</p>
+        {% endif %}
+        {% if admin %} 
+        <a href="/" class="btn btn-outline-warning w-100 mt-2" style="font-size: 0.9rem;">Cambiar precio</a>
+        {% endif %}
+        <a href="/carrito/{{ producto._id }}" class="btn btn-success w-100 fw-semibold" style="background-color: var(--mercadona-green); border-color: var(--mercadona-green); font-size: 0.9rem; text-decoration: none;">Añadir</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}

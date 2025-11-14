@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% from "components/item.html" import card %}
+
+{% block carousel %}
+
+<div class="card border-0 shadow-sm">
+  <div class="card-header text-white fw-bold" style="background-color: #2d7a3e; font-size: 1.1rem; padding: 1rem 1.25rem;">
+    Productos Destacados
+  </div>
+  <div class="card-body p-0">
+    
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      
+      <div class="carousel-indicators">
+        {% for producto in productosCarrusel %}
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}" {% if loop.first %}aria-current="true"{% endif %} aria-label="Slide {{ loop.index }}"></button>
+        {% endfor %}
+      </div>
+      
+      <div class="carousel-inner">
+        {% for producto in productosCarrusel %}
+          <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class="d-flex justify-content-center bg-light position-relative" style="height: 300px;">
+              {% if producto.descuento and producto.descuento > 0 %}
+                <span class="position-absolute top-0 end-0 badge bg-danger badge-descuento m-3" style="z-index: 1; font-size: 1.1rem;">
+                  -{{ (producto.descuento * 100) | round }}%
+                </span>
+              {% endif %}
+              <img src="{{ producto.url_img }}" class="object-fit-contain p-3" style="max-height: 300px; max-width: 100%;" alt="{{ producto.texto_1 or 'Imagen' }}">
+            </div>
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
+              <h5 class="fw-bold mb-2" style="font-size: 1.1rem;">{{ producto.texto_1 or 'Sin título' }}</h5>
+              <p class="mb-2" style="font-size: 0.9rem;">{{ producto.texto_2 or '' }}</p>
+              {% if producto.descuento and producto.descuento > 0 %}
+                <p class="text-decoration-line-through mb-1" style="font-size: 0.85rem;">{{ producto.texto_precio or '' }}</p>
+                <p class="fw-bold text-danger mb-0" style="font-size: 1.3rem;">{{ (producto.precio_euros * (1 - producto.descuento)) | round(2) }} €</p>
+              {% else %}
+                <p class="fw-bold mb-0" style="font-size: 1.2rem; color: #ffc107;">{{ producto.texto_precio or '' }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark bg-opacity-50 rounded-circle p-3" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark bg-opacity-50 rounded-circle p-3" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      
+    </div>
+    
+  </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+  <h2 class="mb-4 fw-bold" style="color: #212529; font-size: 1.75rem;">Todos los productos</h2>
+  
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+    {% for producto in productosCards %}
+      {{ card(producto,admin) }}
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+	<div class="col-md-6 col-lg-5">
+		<div class="card shadow-sm auth-card">
+			<div class="card-body p-4">
+				<h3 class="card-title mb-3">Crear cuenta</h3>
+
+				{% if error %}
+					<div class="alert alert-danger" role="alert">{{ error }}</div>
+				{% endif %}
+
+				<form method="POST" action="/usuario/registro" novalidate>
+					<div class="mb-3">
+						<label for="usr_name" class="form-label">Nombre</label>
+						<input type="text" class="form-control" id="usr_name" name="usr_name" placeholder="Tu nombre" required value="{{ usr_name or '' }}">
+					</div>
+
+					<div class="mb-3">
+						<label for="usr_email" class="form-label">Correo electrónico</label>
+						<input type="email" class="form-control" id="usr_email" name="usr_email" placeholder="nombre@ejemplo.com" required value="{{ usr_email or '' }}">
+					</div>
+
+					<div class="mb-3">
+						<label for="usr_password" class="form-label">Contraseña</label>
+						<input type="password" class="form-control" id="usr_password" name="usr_password" placeholder="Crea una contraseña" required>
+					</div>
+
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<a href="/usuario/login">¿Ya tienes cuenta? Inicia sesión</a>
+						<button class="btn btn-success" type="submit" style="background-color: var(--mercadona-green); border-color: var(--mercadona-green);">Registrarse</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

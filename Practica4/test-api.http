@@ -1,0 +1,34 @@
+GET http://localhost:8000/api/productos
+
+###          
+
+GET http://localhost:8000/api/productos/8924
+
+###
+
+POST http://localhost:8000/api/productos
+Content-Type: application/json
+
+{
+    "texto_1": "Producto de prueba",
+    "texto_2": "Descripción del producto de prueba",
+    "precio_euros": 29.99,
+    "texto_precio": "29.99 €",
+    "url_img": "producto_prueba.jpg",
+    "categoria": "Electrónica",
+    "subsection": "Gadgets"
+}
+
+###
+
+DELETE http://localhost:8000/api/productos/6915b2c791a6c63cdfc5d3c7
+
+###  
+
+PUT http://localhost:8000/api/productos/6915ae0f25fb2041cae08c6a
+Content-Type: application/json
+
+{
+    "precio_euros": 24.99,
+    "texto_precio": "24.99 €"
+}
