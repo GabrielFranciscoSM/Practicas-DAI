@@ -1,28 +1,28 @@
 {% macro card(producto,admin) %}
-<div class="col">
-  <div class="card h-100 border-0 shadow-sm position-relative bg-white">
+<div class="">
+  <div class="bg-white rounded shadow-sm relative h-full">
     {% if producto.descuento and producto.descuento > 0 %}
-      <span class="position-absolute top-0 end-0 badge bg-danger badge-descuento m-2" style="z-index: 1;">
+    <span class="absolute top-2 right-2 badge-descuento bg-red-600 text-white rounded-full px-2 py-0.5 m-2" style="z-index: 1;">
         -{{ (producto.descuento * 100) | round }}%
       </span>
     {% endif %}
-    <img src="{{ producto.url_img }}" class="card-img-top object-fit-contain bg-light p-3" style="height: 200px;" alt="{{ producto.texto_1 or 'Producto' }}">
-    <div class="card-body d-flex flex-column p-3">
+    <img src="{{ producto.url_img }}" class="object-contain bg-gray-100 p-3 w-full" style="height: 200px;" alt="{{ producto.texto_1 or 'Producto' }}">
+    <div class="card-body p-3 flex flex-col">
       <h5 class="card-title mb-2">{{ producto.texto_1 or 'Sin título' }}</h5>
-      <p class="card-text text-secondary mb-2" style="font-size: 0.85rem; line-height: 1.4;">{{ producto.texto_2 or '' }}</p>
-      <p class="card-text mb-3"><small class="text-uppercase text-muted" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;">{{ producto.categoria or '' }}</small></p>
+      <p class="card-text text-gray-500 mb-2" style="font-size: 0.85rem; line-height: 1.4;">{{ producto.texto_2 or '' }}</p>
+      <p class="card-text mb-3"><small class="uppercase text-gray-500" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;">{{ producto.categoria or '' }}</small></p>
       <div class="mt-auto">
         {% if producto.descuento and producto.descuento > 0 %}
-          <p class="text-muted text-decoration-line-through mb-1 precio-original">{{ producto.texto_precio or '' }}</p>
-          <p class="fw-bold mb-3 precio-descuento">{{ (producto.precio_euros * (1 - producto.descuento)) | round(2) }} €</p>
+          <p class="text-gray-500 line-through mb-1 precio-original">{{ producto.texto_precio or '' }}</p>
+          <p class="font-bold mb-3 precio-descuento">{{ (producto.precio_euros * (1 - producto.descuento)) | round(2) }} €</p>
         {% else %}
-          <p class="fw-bold mb-3 precio-normal">{{ producto.texto_precio or '' }}</p>
+          <p class="font-bold mb-3 precio-normal">{{ producto.texto_precio or '' }}</p>
         {% endif %}
         {% if admin %} 
         <input class="producto-id" value="{{ producto.precio_euros or ''  }}" precioTexto="{{ producto.texto_precio or '' }}">
-        <button href="/" class="btn btn-outline-warning w-100 mt-2 cambiar-precio-btn" style="font-size: 0.9rem;" idProducto="{{ producto._id }}">Cambiar precio</button>
+        <button href="/" class="w-full mt-2 border border-yellow-400 text-yellow-700 cambiar-precio-btn" style="font-size: 0.9rem;" idProducto="{{ producto._id }}">Cambiar precio</button>
         {% endif %}
-        <a href="/carrito/{{ producto._id }}" class="btn btn-success w-100 fw-semibold" style="background-color: var(--mercadona-green); border-color: var(--mercadona-green); font-size: 0.9rem; text-decoration: none;">Añadir</a>
+        <a href="/carrito/{{ producto._id }}" class="w-full bg-mercadona-green text-white font-semibold py-2 rounded" style="font-size: 0.9rem; text-decoration: none;">Añadir</a>
 
       </div>
     </div>

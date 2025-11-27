@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "bcrypt": "^6.0.0",
-    "bootstrap": "^5.3.8",
     "chokidar": "^3.6.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.3.1",
@@ -13,8 +12,15 @@
     "nunjucks": "^3.2.4",
     "winston": "^3.18.3"
   },
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0"
+  },
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file=.env tienda.js"
+    "dev": "node --watch --env-file=.env tienda.js",
+    "build:css": "tailwindcss -i ./public/src/styles.css -o ./public/styles.css --minify",
+    "watch:css": "tailwindcss -i ./public/src/styles.css -o ./public/styles.css --watch"
   }
 }

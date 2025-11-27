@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container my-5">
-  <h2 class="mb-4 fw-bold">Tu carrito</h2>
+<div class="container mx-auto my-20 px-4">
+  <h2 class="mb-4 font-bold text-2xl">Tu carrito</h2>
 
   {% if productos and productos | length > 0 %}
-    <div class="list-group">
+    <div class="space-y-2">
       {% for p in productos %}
-        <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="bg-white rounded shadow p-4 flex justify-between items-center">
           <div>
             <h5 class="mb-1">{{ p.texto_1 or 'Sin título' }}</h5>
-            <small class="text-muted">{{ p.texto_2 or p.categoria or '' }}</small>
+            <small class="text-gray-500">{{ p.texto_2 or p.categoria or '' }}</small>
           </div>
-          <div class="text-end d-flex align-items-center gap-2 justify-content-end">
-            <div class="fw-bold">{{ (((p.precio_euros | default(0)) * (1 - (p.descuento | default(0))) ) * (p.qty | default(1))) | round(2, method='common') | string(format='%.2f') }} €</div>
-            <a href="/carrito/disminuirItem/{{ p._id }}" class="btn btn-sm btn-outline-secondary">-</a>
+          <div class="flex items-center gap-2 justify-end text-right">
+            <div class="font-bold">{{ (((p.precio_euros | default(0)) * (1 - (p.descuento | default(0))) ) * (p.qty | default(1))) | round(2, method='common') | string(format='%.2f') }} €</div>
+            <a href="/carrito/disminuirItem/{{ p._id }}" class="border border-gray-300 text-gray-700 px-2 py-1 rounded text-sm">-</a>
             <div><strong>{{ p.qty }}</strong></div>
-            <a href="/carrito/aumentarItem/{{ p._id }}" class="btn btn-sm btn-outline-secondary">+</a>
+            <a href="/carrito/aumentarItem/{{ p._id }}" class="border border-gray-300 text-gray-700 px-2 py-1 rounded text-sm">+</a>
           </div>
         </div>
       {% endfor %}
     </div>
 
-    <div class="mt-4 text-end">
-      <a href="/checkout" class="btn btn-primary">Ir a pagar</a>
+    <div class="mt-4 text-right">
+      <a href="/checkout" class="btn-mercadona px-4 py-2 rounded">Ir a pagar</a>
     </div>
   {% else %}
     <p>Tu carrito está vacío.</p>
