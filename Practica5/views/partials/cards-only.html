@@ -1,0 +1,4 @@
+{% from "components/item.html" import card %}
+{% for producto in productosCards %}
+    {{ card(producto, admin) }}
+{% endfor %}

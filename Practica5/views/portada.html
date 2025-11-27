@@ -63,7 +63,7 @@
 <div class="container my-5">
   <h2 class="mb-4 fw-bold" style="color: #212529; font-size: 1.75rem;">Todos los productos</h2>
   
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+  <div id="resultados" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
     {% for producto in productosCards %}
       {{ card(producto,admin) }}
     {% endfor %}

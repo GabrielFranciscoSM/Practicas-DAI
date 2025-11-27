@@ -145,6 +145,34 @@ router.get('/carrito/disminuirItem/:id', async (req,res) => {
 
 
 
+// Ruta API que devuelve solo las cards HTML para búsqueda interactiva
+router.get('/api/buscar-cards', async (req, res) => {
+  try {
+    const query = req.query.q || '';
+    let productosCards = [];
+    
+    if (query.trim()) {
+      productosCards = await Producto.find({
+        $and: [
+          { categoria: { $ne: 'Aceite, vinagre y sal' } },
+          {
+            $or: [
+              { texto_1: { $regex: query, $options: 'i' } },
+              { texto_2: { $regex: query, $options: 'i' } },
+              { categoria: { $regex: query, $options: 'i' } }
+            ]
+          }
+        ]
+      }).limit(50);
+    }
+    
+    res.render('partials/cards-only.html', { productosCards });
+  } catch (err) {
+    logger.error(err);
+    res.status(500).send('Error en la búsqueda');
+  }
+});
+
 // Ruta de búsqueda /buscar
 router.get('/buscar', async (req, res) => {
   try {

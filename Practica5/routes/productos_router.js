@@ -93,7 +93,7 @@ router.put('/productos/:id', async (req, res)=>{
         
         res.status(200).json({ producto: productoActualizado, error: null });
     } catch (error) {
-        if (error.name === 'ValidationError') {
+        if (error.name === 'ValidationErMaxViTror') {
             const detalles = Object.keys(error.errors).reduce((acc, key) => {
                 acc[key] = error.errors[key].message;
                 return acc;
@@ -104,5 +104,27 @@ router.put('/productos/:id', async (req, res)=>{
         res.status(500).json({ mensaje: 'Error interno del servidor', error: error.message });
     }
 });
+
+router.get('/busqueda-anticipada/:term', async (req, res) => {
+    const termino = req.params.term;
+
+    try {
+        const regex = new RegExp(termino, 'i'); // 'i' para búsqueda case-insensitive
+        const productos = await Producto.find({
+            $or: [
+                { texto_1: regex },
+                { texto_2: regex },
+                { categoria: regex },
+                { subsection: regex }
+            ]
+        }).limit(10); // Limitar resultados para evitar sobrecarga
+
+        res.render('partials/cards-only.html', { productosCards: productos });
+    }   catch (error) {
+        logger.error('Error en búsqueda anticipada:', error);
+        res.status(500).send('Error en la búsqueda');
+    }
+});
+
 
 export default router
