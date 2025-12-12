@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex justify-center">
+	<div class="w-full max-w-md">
+		<div class="bg-white shadow-sm rounded-md auth-card">
+			<div class="p-6">
+				<h3 class="card-title mb-3">Crear cuenta</h3>
+
+				{% if error %}
+					<div class="bg-red-50 border border-red-200 text-red-700 p-3 rounded mb-3">{{ error }}</div>
+				{% endif %}
+
+				<form method="POST" action="/usuario/registro" novalidate>
+					<div class="mb-3">
+						<label for="usr_name" class="form-label">Nombre</label>
+						<input type="text" class="form-control border rounded px-3 py-2 w-full" id="usr_name" name="usr_name" placeholder="Tu nombre" required value="{{ usr_name or '' }}">
+					</div>
+
+					<div class="mb-3">
+						<label for="usr_email" class="form-label">Correo electrónico</label>
+						<input type="email" class="form-control border rounded px-3 py-2 w-full" id="usr_email" name="usr_email" placeholder="nombre@ejemplo.com" required value="{{ usr_email or '' }}">
+					</div>
+
+					<div class="mb-3">
+						<label for="usr_password" class="form-label">Contraseña</label>
+						<input type="password" class="form-control border rounded px-3 py-2 w-full" id="usr_password" name="usr_password" placeholder="Crea una contraseña" required>
+					</div>
+
+					<div class="mb-3 flex justify-between items-center">
+						<a href="/usuario/login">¿Ya tienes cuenta? Inicia sesión</a>
+						<button class="btn-mercadona px-4 py-2 rounded" type="submit">Registrarse</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

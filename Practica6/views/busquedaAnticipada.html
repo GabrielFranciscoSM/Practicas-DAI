@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<nav class="fixed top-0 left-0 right-0 bg-white shadow-sm mb-4 z-50">
+  <div class="container mx-auto px-4 flex items-center justify-between h-16">
+
+    <!-- Brand and search together on the left -->
+    <div class="flex items-center space-x-3">
+      <a class="navbar-brand mr-3" href="/">Mi Tienda Online</a>
+
+      <form class="flex items-center" role="search" action="/busqueda-anticipada" method="GET" id="search-form">
+        <input class="border rounded px-3 py-2 h-10 mr-2" type="search" name="q" placeholder="Buscar productos..."
+          aria-label="Search" required id="search-input" />
+        <button class="btn-mercadona px-3 py-2 rounded h-10" type="submit">Búsqueda Anticipada</button>
+      </form>
+
+    </div>
+
+
+
+    <div class="flex items-center justify-end">
+      <a type="button" href="/carrito" class="relative mr-5 inline-flex items-center h-10"
+        style="background-color: var(--mercadona-green); border-color: var(--mercadona-green); padding: 0.4rem 0.75rem; border-radius: 0.375rem; color: #ffffff; text-decoration:none;">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart"
+          viewBox="0 0 16 16">
+          <path
+            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+        </svg>
+        <span
+          class="absolute top-1/2 transform -translate-y-1/2 right-0 rounded-full bg-red-600 text-white text-xs px-2">
+          {{cantidadProductos}}
+        </span>
+
+        <span class="nav-price ml-3 hidden lg:inline">{{precioTotal}} €</span>
+      </a>
+
+      {% if usuario %}
+      <div class="ml-3 flex items-center">
+        <span class="mr-2 hidden lg:inline">Hola, {{ usuario }}</span>
+        <a href="/usuario/logout"
+          class="btn-mercadona-outline text-sm px-2 py-1 rounded inline-flex items-center h-10">Salir</a>
+      </div>
+      {% else %}
+      <div class="ml-3 flex items-center">
+        <a href="/usuario/login" class="btn-mercadona-link text-sm mr-2 inline-flex items-center h-10">Iniciar
+          sesión</a>
+        <a href="/usuario/registro"
+          class="btn-mercadona text-sm px-2 py-1 rounded inline-flex items-center h-10">Registro</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container mx-auto my-20 px-4">
+
+  <div id="tarjetas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+  </div>
+</div>
+
+<template id="plantilla">
+<div class="max-w-xs rounded overflow-hidden w-9 hover:shadow felx-wrap">
+	<img class="w-10/12 h-3/6 bg-gray-400 ml-5" 
+			 src="https://prod-mercadona.imgix.net/images/aa127a068121be5a0a5dfd543ddb2fa0.jpg?fit=crop&h=300&w=300" 
+			 alt="queso para fundir">
+	<div class="px-6 py-4">
+      <p class="text texto1 text-gray-400 text-base mb-3" style="font-size: 1rem; line-height: 1.4;"> texto 1</p>
+
+      <p class="texto2 text-gray-700 text-base mb-4 card-text" style="font-size: 0.75rem; line-height: 1.4;">
+        texto 2
+      </p>
+      <div class="flex items-baseline gap-2">
+        <p class="font-bold text-lg precio-prefijo">Precio texto</p>
+        <p class="precio-sufijo text-gray-500 text-sm mt-2" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;">Precio sufijo</p>
+      </div>
+		</div>
+	<div class="px-6 pb-2 text-center">
+		<span class="w-full inline-block rounded-full px-3 py-1 text-sm text-yellow-800 mr-2 mb-2 
+					 border border-yellow-600 hover:bg-yellow-200">Añadir al carro</span>
+	</div>
+</div>
+</template>
+
+{% endblock %}
